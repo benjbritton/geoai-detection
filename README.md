@@ -152,6 +152,7 @@ including data preparation, in [`REPRODUCE.md`](REPRODUCE.md).
 | `scripts/train_chactun_semantic.py` | DeepLabV3-R50 baseline that decomposes the leaderboard gap |
 | `scripts/dem_to_g1bands.py`, `run_on_gliht.py` | Cross-survey transfer: the published stretch, and inference on G-LiHT |
 | `posts/` | The write-ups. Markdown only; renders are regenerable |
+| `logs/chactun_matrix_runlog.txt` | Raw run log for the 21-run A/B/C matrix: sequence, wall time and per-fold AP for every run |
 | `configs/` | Overrides layered on a model-zoo base config, plus the split files |
 | `docker/` | Image definition, and `environment.lock.txt` -- the resolved package set the results were produced with |
 
