@@ -189,7 +189,7 @@ A negative result that closes a door is worth more than a positive one that open
 
 Everything is public.
 
-- **Code and full lab notebook:** [github.com/benjbritton/spacenet2-detectron2](https://github.com/benjbritton/spacenet2-detectron2)
+- **Code and full lab notebook:** [github.com/benjbritton/geoai-detection](https://github.com/benjbritton/geoai-detection)
 - **Experiment tracking:** [wandb.ai/benjbritton-geoai/benjbritton_FA26](https://wandb.ai/benjbritton-geoai/benjbritton_FA26)
 
 `REPRODUCE.md` carries every number above with the literal command that produced it, the image digest, and the resolved package list. `LAB_NOTEBOOK.md` is the running record, including the three earlier claims in this project that died under the same kind of scrutiny the hue finding did — and the one where my own correction had to be corrected.
