@@ -38,9 +38,38 @@ None of that derived material is tracked in this repository. It is regenerated
 from the source data by the scripts, so a clone contains no CC BY-SA material.
 Anyone who runs the pipeline produces some, and it is theirs to attribute.
 
+**The Chactun dataset, and anything derived from it.**
+
+    Kokalj, Z., Somrak, M., et al. (2023). Machine learning-ready remote
+    sensing data for Maya archaeology. Scientific Data 10:558.
+    https://doi.org/10.1038/s41597-023-02455-x
+    Data: https://doi.org/10.6084/m9.figshare.22202395
+    Licensed CC BY 4.0. https://creativecommons.org/licenses/by/4.0/
+
+CC BY 4.0 requires attribution and does NOT impose ShareAlike. This is the
+material difference from the SpaceNet terms above, and it is what determines
+what may be released:
+
+  - Derived material -- converted COCO annotations, exported detections,
+    rendered figures -- carries the attribution obligation and nothing more.
+  - Trained model weights derived from this data MAY be released, provided
+    Kokalj et al. 2023 is attributed. Contrast the SpaceNet weights below,
+    which cannot be released without carrying ShareAlike.
+
+The visualisation recipe used for the cross-survey transfer work -- sky-view
+factor, positive openness and slope with the general-terrain stretch settings
+-- is Table 3 of the same paper and is attributed there.
+
+None of the derived material is tracked in this repository; it is regenerated
+from the source data by the scripts.
+
 **Third-party software.** detectron2, PyTorch, GDAL, rasterio, shapely and the
 rest carry their own terms. See "Third-party components" in README.md.
 
-**Trained model weights.** Weights derived from SpaceNet 2 imagery are a
-derivative of CC BY-SA material. They are not tracked here, and releasing them
-would carry the ShareAlike obligation with them.
+**Trained model weights.** The two datasets differ here and the distinction
+matters. Weights derived from SpaceNet 2 imagery are a derivative of CC BY-SA
+material: they are not tracked here, and releasing them would carry the
+ShareAlike obligation with them. Weights derived from the Chactun data are a
+derivative of CC BY 4.0 material and may be released with attribution to
+Kokalj et al. 2023; the Chactun detector is published on the Hugging Face Hub
+on that basis. No weights of either kind are tracked in this repository.
