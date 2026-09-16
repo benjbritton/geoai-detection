@@ -1,0 +1,34 @@
+{
+ "1_semantic_short": {
+  "prompt": "building. platform. water reservoir.",
+  "n_dets": 32900,
+  "n_unmatched": 0,
+  "top_unmatched": [],
+  "seconds": 73.3,
+  "file": "/workspace/outputs/milestone_d/dets_gdino_base_1_semantic_short.json"
+ },
+ "2_semantic_long": {
+  "prompt": "ancient maya building. stone platform. reservoir.",
+  "n_dets": 32900,
+  "n_unmatched": 0,
+  "top_unmatched": [],
+  "seconds": 71.1,
+  "file": "/workspace/outputs/milestone_d/dets_gdino_base_2_semantic_long.json"
+ },
+ "3_morph_long": {
+  "prompt": "small rectangular mound. raised rectangular terrace. dark circular depression.",
+  "n_dets": 32900,
+  "n_unmatched": 0,
+  "top_unmatched": [],
+  "seconds": 71.2,
+  "file": "/workspace/outputs/milestone_d/dets_gdino_base_3_morph_long.json"
+ },
+ "4_morph_short": {
+  "prompt": "mound. rectangular structure. circular pit.",
+  "n_dets": 32900,
+  "n_unmatched": 0,
+  "top_unmatched": [],
+  "seconds": 71.8,
+  "file": "/workspace/outputs/milestone_d/dets_gdino_base_4_morph_short.json"
+ }
+}
