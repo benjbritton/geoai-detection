@@ -239,7 +239,11 @@ def convert(root, out_path, use_watershed, use_rle, min_area,
             "source": "Kokalj et al. 2023, Scientific Data 10:558, "
                       "doi 10.6084/m9.figshare.22202395",
             "licence": "CC BY 4.0",
-            "date_created": datetime.now().isoformat(timespec="seconds"),
+            # A wall-clock stamp here makes the output differ between any
+            # two builds, so a checksum over the file verifies nothing --
+            # including two builds on the same machine. Omitted unless
+            # asked for, so a rebuild can be compared byte for byte.
+            **({"date_created": a.date} if a.date else {}),
             "mask_polarity": "object=0, background=255 (inverted)",
             "instances_from": "watershed on distance transform" if use_watershed
                               else "connected components, 8-connectivity",
@@ -287,6 +291,10 @@ def main():
     p.add_argument("--root", default="data/chactun",
                    help="directory containing lidar/ and masks/")
     p.add_argument("--out", default="data/chactun/coco/chactun_all.json")
+    p.add_argument("--date", default=None,
+                   help="stamp info.date_created with this literal "
+                        "string; omitted by default so two builds of "
+                        "the same inputs are byte-identical")
     p.add_argument("--split-touching", action="store_true",
                    help="watershed to separate fused structures. Changes "
                         "instance counts, so it is opt-in")
