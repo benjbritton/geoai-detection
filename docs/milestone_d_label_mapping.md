@@ -65,6 +65,69 @@ named in `milestone_d_preregistration.md`, which were frozen before the dry run
 exposed the problem; the departure is recorded here rather than folded in
 silently.
 
+## What the assignment produces: no class prior, and no geometric distinction
+
+Two checks on the corrected pipeline, both on the canonical split. Neither
+changes the AP table; both change what the AP table means.
+
+**The predicted class mix bears no relation to prevalence.**
+
+| | building | platform | aguada |
+|---|---|---|---|
+| ground truth | 76.3% | 22.9% | 0.8% |
+| supervised, arm D | 77.9% | 21.0% | 1.1% |
+| prompt set 1 | 14.7% | 6.1% | 79.3% |
+| prompt set 2 | 51.2% | 40.0% | 8.8% |
+| prompt set 3 | 44.1% | 17.8% | 38.1% |
+| prompt set 4 | 8.7% | 38.8% | 52.5% |
+
+The supervised model recovers the prevalence almost exactly. The zero-shot arms
+assign up to 79% of their boxes to a class that is 0.8% of the data, because
+phrase similarity carries no information about how common a thing is. A survey
+tool that calls four fifths of everything an aguada is unusable irrespective of
+its AP, and AP does not surface this: set 1 gave aguada 79% of its boxes and
+scored aguada AP 0.15, while set 3 gave it 38% and scored 3.89. Assignment share
+and AP are close to independent, which is also the evidence that the per-class
+AP pattern is not an artefact of how argmax divides the boxes up.
+
+**The boxes themselves are undifferentiated.** Band 3 of the render is slope on
+an inverted greyscale, so a flat interior reads bright and a sharply bounded
+feature reads as high variance across the box. Measured on ground-truth boxes:
+
+| ground truth | area, % of tile | band 3 mean | band 3 sd |
+|---|---|---|---|
+| building | 0.84 | 185.5 | 39.0 |
+| platform | 3.18 | 198.6 | 38.5 |
+| aguada | 10.19 | 227.3 | 18.2 |
+
+The three classes are separable on these two axes, and not in the way flatness
+alone would suggest. Platforms are flatter than buildings but carry the same
+edge contrast: what distinguishes a platform from an aguada is the rim, not the
+flat interior. Aguadas are both flattest and least bounded, at roughly half the
+edge contrast of either built class.
+
+The predictions do not reproduce that structure. Taking the top tenth by score,
+where AP is decided:
+
+| predicted | area, % of tile | band 3 sd |
+|---|---|---|
+| set 1, labelled building | 72.67 | 25.5 |
+| set 3, labelled building | 18.25 | 28.6 |
+| set 4, labelled building | 80.48 | 22.1 |
+| set 1, labelled aguada | 35.74 | 28.8 |
+| set 4, labelled aguada | 39.47 | 26.4 |
+
+A box labelled "building" averages 72.67% of the tile against a true building's
+0.84%, about ninety times too large, with edge contrast in the aguada range.
+Boxes labelled building and boxes labelled aguada are not distinguishable on
+either axis. The label is close to independent of the physical character of what
+was boxed.
+
+That is a different failure from a miscalibrated prior. The model is not
+confusing one class for another; it is producing one undifferentiated kind of
+box -- large, flat, weakly bounded -- and attaching labels to it. Both
+measurements come from `scripts/chactun_openvocab_geometry.py`.
+
 ## Scope of this note
 
 This concerns label mapping only -- how a box that Grounding DINO has already
