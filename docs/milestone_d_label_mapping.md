@@ -67,6 +67,24 @@ silently.
 
 ## What the assignment produces: no class prior, and no geometric distinction
 
+> **Correction, 2026-09-17.** The per-class figures in this section were computed
+> against `fold9_val.json`, in which 3,429 of 9,853 components touch a tile
+> boundary: on this split, 30% of buildings, 54% of platforms and **12 of the 13
+> aguadas**. Those annotations are fragments rather than whole structures, so
+> every per-class number below measures a mixture of the two. The aguada column
+> in particular rests on one intact instance and should not be read as a
+> per-class result at all.
+>
+> Expert review of the ground-truth crops separately found building and platform
+> not reliably distinguishable at 0.5 m at crop level, so type-level claims are
+> not supportable on this data regardless of the fragment problem.
+>
+> The section is kept because it records what was run and because the
+> *aggregate* observations survive — box sizes do not match the classes they are
+> labelled with, and the predicted class mix bears no relation to prevalence.
+> The per-class rankings do not survive, and no per-class figures appear in the
+> write-up.
+
 Two checks on the corrected pipeline, both on the canonical split. Neither
 changes the AP table; both change what the AP table means.
 
