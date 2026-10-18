@@ -56,6 +56,8 @@ worth reading.
 
 → [`posts/Chactun_Multiclass_M2_blog_090226v17.md`](posts/Chactun_Multiclass_M2_blog_090226v17.md)
  · [W&B](https://wandb.ai/benjbritton-geoai/chactun-multiclass) (40 runs)
+ · [Model on Hugging Face](https://huggingface.co/benjbritton/chactun-multiclass-detector)
+ (gated: access on request, under a responsible-use license)
 
 ---
 
