@@ -74,3 +74,7 @@ desktop.ini
 posts/*v[0-9]*.md
 posts/*v[0-9]*.html
 posts/*v[0-9]*.docx
+
+# demo build assets: fetched from Hugging Face at build time (CC BY-SA), never tracked
+demo/examples/
+demo/model_final.pth

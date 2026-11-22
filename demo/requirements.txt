@@ -1,0 +1,7 @@
+numpy<2
+opencv-python-headless==4.10.0.84
+pillow==10.4.0
+gradio==4.44.1
+huggingface_hub>=0.25,<1.0
+pydantic==2.10.6
+fastapi==0.115.12

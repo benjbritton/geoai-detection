@@ -75,6 +75,8 @@ ablation shows the detector does not depend on color: removing it costs only
 → [`posts/2026-08-30-hue-predicts-which-cities-are-hard.md`](posts/2026-08-30-hue-predicts-which-cities-are-hard.md)
  · [`posts/2026-09-03-replicating-the-grayscale-ablation.md`](posts/2026-09-03-replicating-the-grayscale-ablation.md)
  · [W&B](https://wandb.ai/benjbritton-geoai/benjbritton_FA26) (14 runs)
+ · [Model on Hugging Face](https://huggingface.co/benjbritton/spacenet2-building-detector)
+ · [Interactive demo](demo/) (Docker: `docker run -p 7860:7860 ghcr.io/benjbritton/spacenet2-building-detector:v1.0`)
 
 ---
 
@@ -135,6 +137,7 @@ including data preparation, in [`REPRODUCE.md`](REPRODUCE.md).
 | `scripts/chactun_intervals.py`, `chactun_permutation.py` | Confidence intervals, exact comparison family, distribution-free floor |
 | `scripts/train_chactun_semantic.py` | DeepLabV3-R50 semantic-segmentation model |
 | `scripts/dem_to_g1bands.py`, `run_on_gliht.py` | Cross-survey transfer: the published stretch, and inference on G-LiHT |
+| `demo/` | Docker + Gradio demo of the SpaceNet 2 model; weights and example tiles are fetched from Hugging Face at build time |
 | `posts/` | The write-ups. Markdown only; renders are regenerable |
 | `logs/chactun_matrix_runlog.txt` | Raw run log for the 21-run A/B/C matrix: sequence, wall time and per-fold AP for every run |
 | `configs/` | Overrides layered on a model-zoo base config, plus the split files |
