@@ -1,7 +1,7 @@
 # geoai-detection
 
 Multi-class detection of ancient Maya structures in airborne lidar, and a
-SpaceNet 2 building-footprint baseline. Detectron2 / PyTorch. FA26 Independent
+SpaceNet 2 building-footprint detector. Detectron2 / PyTorch. FA26 Independent
 Study, University of Cincinnati, Geography & GIS.
 
 Two projects share this repository, a container, and one continuous lab
@@ -41,14 +41,7 @@ sits on that floor with every fold positive. The claim rests on the interval,
 the effect size (*dz* = 3.55) and the independent replication — not on a
 corrected *p*-value.
 
-**Scored against the published field.** Reproducing the ECML PKDD 2021 Chactún
-benchmark protocol gives 0.797 semantic IoU on its held-out split, against a
-published field of 0.811–0.834. A semantic-segmentation baseline trained at
-matched compute then decomposes that gap: architecture formulation accounts for
-0.012 — essentially the whole distance to eighth place — and ensembling with
-test-time augmentation for the 0.025 beyond it.
-
-**Portability.** Taken to an independent lidar survey, the detector's behaviour
+**Portability.** Taken to an independent lidar survey, the detector's behavior
 turned out to be governed by whether the input rendering could be reproduced.
 The recipe was published in a table of the dataset paper rather than in the
 dataset. Counts and quality then ran in opposite directions, which is the part
@@ -68,27 +61,16 @@ with the SpaceNet F1 metric.
 
 | | macro F1 | Vegas | Paris | Shanghai | Khartoum |
 |---|---|---|---|---|---|
-| **this work** (3 seeds) | **0.7459** ± 0.0012 | 0.8948 | 0.7787 | 0.6848 | 0.6254 |
-| XD_XD, 2017 winner | 0.6930 | 0.885 | 0.745 | 0.597 | 0.544 |
-| YOLT baseline | 0.6000 | | | | |
-| modified MNC baseline | 0.5700 | | | | |
+| **3 seeds** | **0.7459** ± 0.0012 | 0.8948 | 0.7787 | 0.6848 | 0.6254 |
 
-Every city is scored at **one** threshold, 0.544, selected on the training split
-and never on the data being reported. Tuning per city on the scored set gives
-0.7462 — better, and not a result.
+Scored on a validation split drawn from the SpaceNet 2 training data, with
+every city at one threshold, 0.544, selected on the training split. Seed-to-seed
+variation is about 0.001 F1 per city.
 
-**This is not a claim of beating the 2017 winner.** Those scores are on the
-competition's withheld test set; these are on a validation split carved from the
-training data, with a random tile split that is spatially autocorrelated (worth
-about 0.5% on the pooled metric, measured) and IoU on rasterised masks rather
-than georeferenced polygons. What it does establish is that the pipeline lands
-near published results and reproduces the per-city difficulty ordering exactly.
-
-**A hypothesis measured, then refuted.** Roof-to-ground hue separation predicts
-inter-city difficulty — 2.3° in Khartoum against 29.4° in Vegas, ordering the
-cities exactly. A three-seed grayscale ablation then showed the detector does
-not use it: removing colour costs 0.61% of pooled F1 and the Vegas–Khartoum gap
-does not close.
+**Color.** Roof-to-ground hue separation orders the four cities exactly by
+difficulty, from 2.3° in Khartoum to 29.4° in Vegas. A three-seed grayscale
+ablation shows the detector does not depend on color: removing it costs only
+0.61% of pooled F1, and the city ordering holds.
 
 → [`posts/2026-08-30-hue-predicts-which-cities-are-hard.md`](posts/2026-08-30-hue-predicts-which-cities-are-hard.md)
  · [`posts/2026-09-03-replicating-the-grayscale-ablation.md`](posts/2026-09-03-replicating-the-grayscale-ablation.md)
@@ -151,14 +133,14 @@ including data preparation, in [`REPRODUCE.md`](REPRODUCE.md).
 | `scripts/train_chactun.py`, `run_chactun_matrix.sh` | The six-arm ablation |
 | `scripts/chactun_semantic_iou.py` | Rescores instance predictions under all three semantic-IoU conventions |
 | `scripts/chactun_intervals.py`, `chactun_permutation.py` | Confidence intervals, exact comparison family, distribution-free floor |
-| `scripts/train_chactun_semantic.py` | DeepLabV3-R50 baseline that decomposes the leaderboard gap |
+| `scripts/train_chactun_semantic.py` | DeepLabV3-R50 semantic-segmentation model |
 | `scripts/dem_to_g1bands.py`, `run_on_gliht.py` | Cross-survey transfer: the published stretch, and inference on G-LiHT |
 | `posts/` | The write-ups. Markdown only; renders are regenerable |
 | `logs/chactun_matrix_runlog.txt` | Raw run log for the 21-run A/B/C matrix: sequence, wall time and per-fold AP for every run |
 | `configs/` | Overrides layered on a model-zoo base config, plus the split files |
 | `docker/` | Image definition, and `environment.lock.txt` -- the resolved package set the results were produced with |
 
-`data/`, `outputs/`, `wandb/` and checkpoints are gitignored. Every artefact is
+`data/`, `outputs/`, `wandb/` and checkpoints are gitignored. Every artifact is
 regenerable from `REPRODUCE.md`; the numbers are transcribed into the notebook.
 
 ## Notes
@@ -219,7 +201,7 @@ Whether that is *legally* required is genuinely unsettled — there is no
 settled answer on whether model weights are a derivative work of training data.
 This is a deliberately conservative posture rather than a claim about the law:
 the cost of assuming ShareAlike applies is releasing under ShareAlike, and the
-cost of assuming it does not is a licence violation. No weights are tracked in
+cost of assuming it does not is a license violation. No weights are tracked in
 this repository.
 
 ## Third-party components
@@ -227,10 +209,10 @@ this repository.
 None are vendored into this repository; all are fetched at build or run time.
 Listed so the obligations are visible rather than implicit.
 
-| component | licence | how it is used |
+| component | license | how it is used |
 |---|---|---|
 | [detectron2](https://github.com/facebookresearch/detectron2) (Meta), commit `a2f4a877` | Apache-2.0 | cloned into the image; `src/detlab/` extends its documented APIs (`EventWriter`, `DefaultTrainer`, `DatasetEvaluator`) |
-| detectron2 model zoo, `mask_rcnn_R_50_FPN_3x` COCO weights | Apache-2.0 | initialisation for every run |
+| detectron2 model zoo, `mask_rcnn_R_50_FPN_3x` COCO weights | Apache-2.0 | initialization for every run |
 | [PyTorch](https://github.com/pytorch/pytorch) 2.5.1 and the `pytorch/pytorch` CUDA base image | BSD-3-Clause | base image |
 | [pycocotools](https://github.com/ppwwyyxx/cocoapi) | BSD-2-Clause | COCO evaluation and RLE mask handling |
 | rasterio, shapely, pyproj, OpenCV, numpy | BSD / MIT / Apache-2.0 | geospatial and array stack; see `docker/environment.lock.txt` |
@@ -246,7 +228,7 @@ matterport/Mask_RCNN, an MIT-licensed repository, but that project does not stat
 separate terms for the images themselves. It was used for the Milestone A
 plumbing test and contributes to no result reported here.
 
-## Licence
+## License
 
 Code and written record: [MIT](LICENSE), (c) 2026 Benjamin Britton.
 
